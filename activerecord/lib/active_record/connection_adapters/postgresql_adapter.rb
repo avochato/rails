@@ -87,6 +87,7 @@ module ActiveRecord
         self.additional_type_records_cache = []
         self.known_coder_type_records_cache = []
       end
+      delegate :clear_type_records_cache!, to: :class
 
       def reload_type_map
         clear_type_records_cache!
