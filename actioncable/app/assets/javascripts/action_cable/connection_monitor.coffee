@@ -58,13 +58,14 @@ class ActionCable.ConnectionMonitor
 
   getPollInterval: ->
     {min, max} = @constructor.pollInterval
-    interval = 5 * Math.log(@reconnectAttempts + 1)
+    interval = 5 * (@reconnectAttempts + 1)
     Math.round(clamp(interval, min, max) * 1000)
 
   reconnectIfStale: ->
     if @connectionIsStale()
       ActionCable.log("ConnectionMonitor detected stale connection. reconnectAttempts = #{@reconnectAttempts}, pollInterval = #{@getPollInterval()} ms, time disconnected = #{secondsSince(@disconnectedAt)} s, stale threshold = #{@constructor.staleThreshold} s")
       @reconnectAttempts++
+      ActionCable.log('attempt', @reconnectAttempts);
       if @disconnectedRecently()
         ActionCable.log("ConnectionMonitor skipping reopening recent disconnect")
       else
