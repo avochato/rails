@@ -73,11 +73,8 @@ class ConnectionMonitor {
   }
 
   getPollInterval() {
-    const { staleThreshold, reconnectionBackoffRate } = this.constructor
-    const backoff = Math.min(this.reconnectAttempts + 1, 100)
-    const jitterMax = this.reconnectAttempts === 0 ? 1.0 : reconnectionBackoffRate
-    const jitter = jitterMax * Math.random()
-    return staleThreshold * 1000 * backoff * (1 + jitter)
+    const backoff = Math.min(this.reconnectAttempts + 1, 30)
+    return 1000 * backoff
   }
 
   reconnectIfStale() {
