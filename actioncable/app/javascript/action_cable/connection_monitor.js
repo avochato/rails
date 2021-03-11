@@ -73,7 +73,7 @@ class ConnectionMonitor {
   }
 
   getPollInterval() {
-    const backoff = Math.min(this.reconnectAttempts + 1, 30)
+    const backoff = Math.min(this.reconnectAttempts + 1, 6) * 5
     return 1000 * backoff
   }
 
